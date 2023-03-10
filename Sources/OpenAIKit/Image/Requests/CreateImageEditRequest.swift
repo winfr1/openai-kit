@@ -4,6 +4,7 @@ import Foundation
 
 struct CreateImageEditRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/images/edits"
     let body: HTTPClient.Body?
     private let boundary = UUID().uuidString
@@ -15,6 +16,7 @@ struct CreateImageEditRequest: Request {
     }
     
     init(
+        host: String,
         image: Data,
         mask: Data?,
         prompt: String,
@@ -22,6 +24,7 @@ struct CreateImageEditRequest: Request {
         size: Image.Size,
         user: String?
     ) throws {
+        self.host = host
         
         let builder = MultipartFormDataBuilder(boundary: boundary)
         

@@ -4,10 +4,12 @@ import Foundation
 
 struct CreateEditRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/edits"
     let body: HTTPClient.Body?
     
     init(
+        host: String,
         model: String,
         input: String,
         instruction: String,
@@ -15,6 +17,7 @@ struct CreateEditRequest: Request {
         temperature: Double,
         topP: Double
     ) throws {
+        self.host = host
         
         let body = Body(
             model: model,

@@ -1,8 +1,9 @@
 public struct ModelProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host
         self.requestHandler = requestHandler
     }
     
@@ -15,7 +16,7 @@ public struct ModelProvider {
      Lists the currently available models, and provides basic information about each one such as the owner and availability.
      */
     public func list() async throws -> [Model] {
-        let request = ListModelsRequest()
+        let request = ListModelsRequest(host: host)
         
         let response: ListModelsResponse = try await requestHandler.perform(request: request)
         
@@ -31,7 +32,7 @@ public struct ModelProvider {
      Retrieves a model instance, providing basic information about the model such as the owner and permissioning.
      */
     public func retrieve(id: String) async throws -> Model {
-        let request = RetrieveModelRequest(id: id)
+        let request = RetrieveModelRequest(host: host, id: id)
     
         return try await requestHandler.perform(request: request)
     }

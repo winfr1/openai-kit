@@ -4,13 +4,16 @@ import Foundation
 
 struct CreateModerationRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/moderations"
     let body: HTTPClient.Body?
     
     init(
+        host: String,
         input: String,
         model: Moderation.Model
     ) throws {
+        self.host = host
         
         let body = Body(
            input: input,

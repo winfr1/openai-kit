@@ -4,6 +4,7 @@ import AsyncHTTPClient
 
 struct UploadFileRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/files"
     let body: HTTPClient.Body?
     private let boundary = UUID().uuidString
@@ -15,10 +16,13 @@ struct UploadFileRequest: Request {
     }
     
     init(
+        host: String,
         file: Data,
         fileName: String,
         purpose: File.Purpose
     ) throws {
+        self.host = host
+        
         let builder = MultipartFormDataBuilder(boundary: boundary)
         
         builder.addDataField(

@@ -1,10 +1,11 @@
 import Foundation
 
 public struct FileProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host
         self.requestHandler = requestHandler
     }
     
@@ -17,7 +18,7 @@ public struct FileProvider {
      Returns a list of files that belong to the user's organization.
      */
     public func list() async throws -> [File] {
-        let request = ListFilesRequest()
+        let request = ListFilesRequest(host: host)
         
         let response: ListFilesResponse = try await requestHandler.perform(request: request)
         
@@ -39,6 +40,7 @@ public struct FileProvider {
     ) async throws -> File {
         
         let request = try UploadFileRequest(
+            host: host,
             file: file,
             fileName: fileName,
             purpose: purpose
@@ -56,7 +58,7 @@ public struct FileProvider {
      Delete a file.
      */
     public func delete(id: String) async throws -> DeleteFileResponse {
-        let request = DeleteFileRequest(id: id)
+        let request = DeleteFileRequest(host: host, id: id)
         
         return try await requestHandler.perform(request: request)
     }
@@ -70,7 +72,7 @@ public struct FileProvider {
      Returns information about a specific file.
      */
     public func retrieve(id: String) async throws -> File {
-        let request = RetrieveFileRequest(id: id)
+        let request = RetrieveFileRequest(host: host, id: id)
         
         return try await requestHandler.perform(request: request)
     }
@@ -84,7 +86,7 @@ public struct FileProvider {
      Returns the contents of the specified file
      */
     public func retrieveFileContent(id: String) async throws -> Data {
-        let request = RetrieveFileContentRequest(id: id)
+        let request = RetrieveFileContentRequest(host: host, id: id)
         
         return try await requestHandler.perform(request: request)
     }

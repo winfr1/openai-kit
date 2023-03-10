@@ -4,6 +4,7 @@ import Foundation
 
 struct CreateImageVariationRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/images/variations"
     let body: HTTPClient.Body?
     private let boundary = UUID().uuidString
@@ -15,11 +16,13 @@ struct CreateImageVariationRequest: Request {
     }
     
     init(
+        host: String,
         image: Data,
         n: Int,
         size: Image.Size,
         user: String?
     ) throws {
+        self.host = host
         
         let builder = MultipartFormDataBuilder(boundary: boundary)
         

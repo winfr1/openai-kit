@@ -4,15 +4,18 @@ import Foundation
 
 struct CreateImageRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/images/generations"
     let body: HTTPClient.Body?
     
     init(
+        host: String,
         prompt: String,
         n: Int,
         size: Image.Size,
         user: String?
     ) throws {
+        self.host = host
         
         let body = Body(
             prompt: prompt,

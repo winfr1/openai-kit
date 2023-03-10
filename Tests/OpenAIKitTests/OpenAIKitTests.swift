@@ -13,6 +13,7 @@ final class OpenAIKitTests: XCTestCase {
         let configuration = Configuration(apiKey: "YOUR-API-KEY")
         
         client = Client(
+            host: "api.openai.com",
             httpClient: httpClient,
             configuration: configuration
         )

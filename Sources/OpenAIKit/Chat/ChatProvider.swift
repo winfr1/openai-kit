@@ -1,8 +1,9 @@
 public struct ChatProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host
         self.requestHandler = requestHandler
     }
     
@@ -30,6 +31,7 @@ public struct ChatProvider {
     ) async throws -> Chat {
         
         let request = try CreateChatRequest(
+            host: host,
             model: model.id,
             messages: messages,
             temperature: temperature,

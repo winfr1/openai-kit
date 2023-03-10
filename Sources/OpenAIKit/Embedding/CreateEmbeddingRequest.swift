@@ -4,14 +4,17 @@ import Foundation
 
 struct CreateEmbeddingRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/embeddings"
     let body: HTTPClient.Body?
     
     init(
+        host: String,
         model: String,
         input: String,
         user: String?
     ) throws {
+        self.host = host
         
         let body = Body(
             model: model,

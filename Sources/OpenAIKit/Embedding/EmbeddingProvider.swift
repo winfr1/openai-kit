@@ -1,8 +1,9 @@
 public struct EmbeddingProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host
         self.requestHandler = requestHandler
     }
     
@@ -21,6 +22,7 @@ public struct EmbeddingProvider {
     ) async throws -> CreateEmbeddingResponse {
         
         let request = try CreateEmbeddingRequest(
+            host: host,
             model: model.id,
             input: input,
             user: user

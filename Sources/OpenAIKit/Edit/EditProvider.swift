@@ -1,8 +1,9 @@
 public struct EditProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host 
         self.requestHandler = requestHandler
     }
     
@@ -24,6 +25,7 @@ public struct EditProvider {
     ) async throws -> Edit {
         
         let request = try CreateEditRequest(
+            host: host,
             model: model.id,
             input: input,
             instruction: instruction,

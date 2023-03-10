@@ -4,10 +4,12 @@ import Foundation
 
 struct CreateChatRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/chat/completions"
     let body: HTTPClient.Body?
     
     init(
+        host: String,
         model: String,
         messages: [Chat.Message],
         temperature: Double,
@@ -21,6 +23,7 @@ struct CreateChatRequest: Request {
         logitBias: [String: Int],
         user: String?
     ) throws {
+        self.host = host
         
         let body = Body(
             model: model,

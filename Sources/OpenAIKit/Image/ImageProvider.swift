@@ -1,10 +1,11 @@
 import Foundation
 
 public struct ImageProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host
         self.requestHandler = requestHandler
     }
     
@@ -24,6 +25,7 @@ public struct ImageProvider {
     ) async throws -> ImageResponse {
         
         let request = try CreateImageRequest(
+            host: host,
             prompt: prompt,
             n: n,
             size: size,
@@ -51,6 +53,7 @@ public struct ImageProvider {
     ) async throws -> ImageResponse {
         
         let request = try CreateImageEditRequest(
+            host: host,
             image: image,
             mask: mask,
             prompt: prompt,
@@ -78,6 +81,7 @@ public struct ImageProvider {
     ) async throws -> ImageResponse {
         
         let request = try CreateImageVariationRequest(
+            host: host,
             image: image,
             n: n,
             size: size,

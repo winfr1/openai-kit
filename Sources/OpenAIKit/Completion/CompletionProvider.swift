@@ -1,8 +1,9 @@
 public struct CompletionProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host
         self.requestHandler = requestHandler
     }
     
@@ -34,6 +35,7 @@ public struct CompletionProvider {
     ) async throws -> Completion {
         
         let request = try CreateCompletionRequest(
+            host: host,
             model: model.id,
             prompts: prompts,
             suffix: suffix,

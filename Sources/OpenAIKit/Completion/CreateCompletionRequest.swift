@@ -4,10 +4,12 @@ import Foundation
 
 struct CreateCompletionRequest: Request {
     let method: HTTPMethod = .POST
+    let host: String
     let path = "/v1/completions"
     let body: HTTPClient.Body?
     
     init(
+        host: String,
         model: String,
         prompts: [String],
         suffix: String?,
@@ -25,6 +27,7 @@ struct CreateCompletionRequest: Request {
         logitBias: [String: Int],
         user: String?
     ) throws {
+        self.host = host
         
         let body = Body(
             model: model,

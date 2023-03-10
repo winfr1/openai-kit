@@ -1,8 +1,9 @@
 public struct ModerationProvider {
-    
+    private let host: String
     private let requestHandler: RequestHandler
     
-    init(requestHandler: RequestHandler) {
+    init(host: String, requestHandler: RequestHandler) {
+        self.host = host
         self.requestHandler = requestHandler
     }
     
@@ -20,6 +21,7 @@ public struct ModerationProvider {
     ) async throws -> Moderation {
         
         let request = try CreateModerationRequest(
+            host: host,
             input: input,
             model: model
         )
